@@ -64,5 +64,6 @@ public class MyGdxGame implements ApplicationListener {
 	public void resume() {
 		
 		//test
+		//123
 	}
 }
