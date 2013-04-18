@@ -62,5 +62,7 @@ public class MyGdxGame implements ApplicationListener {
 
 	@Override
 	public void resume() {
+		
+		//test
 	}
 }
