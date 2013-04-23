@@ -117,6 +117,10 @@ public class Zombie implements ApplicationListener {
 			chainsaw.x = 0;
 		if (chainsaw.x > 800 - 48)
 			chainsaw.x = 800 - 48;
+		if (chainsaw.y < 0)
+			chainsaw.y = 0;
+		if (chainsaw.y > 800 - 48)
+			chainsaw.y = 800 - 48;
 
 		// check if we need to create a new raindrop
 		if (TimeUtils.nanoTime() - lastZombieTime > 1000000000)
