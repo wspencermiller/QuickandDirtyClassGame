@@ -27,6 +27,8 @@ public class Zombie implements ApplicationListener {
 	Rectangle rpgChar;
 	Array<Rectangle> zombies;
 	long lastZombieTime;
+	long StartTime;
+	int level;
 
 	@Override
 	public void create() {
@@ -48,12 +50,13 @@ public class Zombie implements ApplicationListener {
 		batch = new SpriteBatch();
 
 		// create a Rectangle to logically represent the bucket
-		spawnChainsaw();
+		spawnChar();
 		// create the raindrops array and spawn the first raindrop
 		zombies = new Array<Rectangle>();
 		spawnZombie();
-	}
-	private void spawnChainsaw() {rpgChar = new Rectangle();
+		StartTime = TimeUtils.nanoTime();
+}
+	private void spawnChar() {rpgChar = new Rectangle();
 	rpgChar.x = 800 / 2 - 48 / 2; // center the bucket horizontally
 	rpgChar.y = 400/2 - 48/2; // bottom left corner of the bucket is 20 pixels above
 						// the bottom screen edge
@@ -139,8 +142,12 @@ public class Zombie implements ApplicationListener {
 			if (zombie.overlaps(rpgChar)) {
 				//sawSound.play();
 				iter.remove();
-				spawnChainsaw();
+				spawnChar();
+			}	
+			if ((TimeUtils.nanoTime() - StartTime)/100 >= 100000000){
+				//end game
 			}
+			
 			
 		}
 	}
