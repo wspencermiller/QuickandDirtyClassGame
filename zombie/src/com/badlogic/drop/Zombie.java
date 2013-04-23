@@ -34,7 +34,7 @@ public class Zombie implements ApplicationListener {
 	public void create() {
 		// load the images for the zombie and the chainsaw, 48x48 pixels each
 		zombieImage = new Texture(Gdx.files.internal("zombie.png"));
-		rpgImage = new Texture(Gdx.files.internal("chainsaw.png"));
+		rpgImage = new Texture(Gdx.files.internal("RPGChar.png"));
 
 		// load the drop sound effect and the rain background "music"
 		sawSound = Gdx.audio.newSound(Gdx.files.internal("saw.mp3"));
