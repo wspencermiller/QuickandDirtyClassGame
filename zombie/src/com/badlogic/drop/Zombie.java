@@ -19,12 +19,12 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class Zombie implements ApplicationListener {
 	Texture zombieImage;
-	Texture chainsawImage;
+	Texture rpgImage;
 	Sound sawSound;
 	Music songMusic;
 	SpriteBatch batch;
 	OrthographicCamera camera;
-	Rectangle chainsaw;
+	Rectangle rpgChar;
 	Array<Rectangle> zombies;
 	long lastZombieTime;
 
@@ -32,7 +32,7 @@ public class Zombie implements ApplicationListener {
 	public void create() {
 		// load the images for the zombie and the chainsaw, 48x48 pixels each
 		zombieImage = new Texture(Gdx.files.internal("zombie.png"));
-		chainsawImage = new Texture(Gdx.files.internal("chainsaw.png"));
+		rpgImage = new Texture(Gdx.files.internal("chainsaw.png"));
 
 		// load the drop sound effect and the rain background "music"
 		sawSound = Gdx.audio.newSound(Gdx.files.internal("saw.mp3"));
@@ -53,12 +53,12 @@ public class Zombie implements ApplicationListener {
 		zombies = new Array<Rectangle>();
 		spawnZombie();
 	}
-	private void spawnChainsaw() {chainsaw = new Rectangle();
-	chainsaw.x = 800 / 2 - 48 / 2; // center the bucket horizontally
-	chainsaw.y = 400/2 - 48/2; // bottom left corner of the bucket is 20 pixels above
+	private void spawnChainsaw() {rpgChar = new Rectangle();
+	rpgChar.x = 800 / 2 - 48 / 2; // center the bucket horizontally
+	rpgChar.y = 400/2 - 48/2; // bottom left corner of the bucket is 20 pixels above
 						// the bottom screen edge
-	chainsaw.width = 48;
-	chainsaw.height = 48;
+	rpgChar.width = 48;
+	rpgChar.height = 48;
 	}
 	private void spawnZombie() {
 		Rectangle zombie = new Rectangle();
@@ -89,7 +89,7 @@ public class Zombie implements ApplicationListener {
 		// begin a new batch and draw the bucket and
 		// all drops
 		batch.begin();
-		batch.draw(chainsawImage, chainsaw.x, chainsaw.y);
+		batch.draw(rpgImage, rpgChar.x, rpgChar.y);
 		for (Rectangle zombie : zombies) {
 			batch.draw(zombieImage, zombie.x, zombie.y);
 		}
@@ -100,27 +100,27 @@ public class Zombie implements ApplicationListener {
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			chainsaw.x = touchPos.x - 48 / 2;
-			chainsaw.y = touchPos.y - 48 / 2;
+			rpgChar.x = touchPos.x - 48 / 2;
+			rpgChar.y = touchPos.y - 48 / 2;
 		}
 		if (Gdx.input.isKeyPressed(Keys.LEFT))
-			chainsaw.x -= 500 * Gdx.graphics.getDeltaTime();
+			rpgChar.x -= 500 * Gdx.graphics.getDeltaTime();
 		if (Gdx.input.isKeyPressed(Keys.RIGHT))
-			chainsaw.x += 500 * Gdx.graphics.getDeltaTime();
+			rpgChar.x += 500 * Gdx.graphics.getDeltaTime();
 		if (Gdx.input.isKeyPressed(Keys.UP))
-			chainsaw.y += 500 * Gdx.graphics.getDeltaTime();
+			rpgChar.y += 500 * Gdx.graphics.getDeltaTime();
 		if (Gdx.input.isKeyPressed(Keys.DOWN))
-			chainsaw.y -= 500 * Gdx.graphics.getDeltaTime();
+			rpgChar.y -= 500 * Gdx.graphics.getDeltaTime();
 
 		// make sure the bucket stays within the screen bounds
-		if (chainsaw.x < 0)
-			chainsaw.x = 0;
-		if (chainsaw.x > 800 - 48)
-			chainsaw.x = 800 - 48;
-		if (chainsaw.y < 0)
-			chainsaw.y = 0;
-		if (chainsaw.y > 800 - 48)
-			chainsaw.y = 800 - 48;
+		if (rpgChar.x < 0)
+			rpgChar.x = 0;
+		if (rpgChar.x > 800 - 48)
+			rpgChar.x = 800 - 48;
+		if (rpgChar.y < 0)
+			rpgChar.y = 0;
+		if (rpgChar.y > 800 - 48)
+			rpgChar.y = 800 - 48;
 
 		// check if we need to create a new raindrop
 		if (TimeUtils.nanoTime() - lastZombieTime > 1000000000)
@@ -136,7 +136,7 @@ public class Zombie implements ApplicationListener {
 			zombie.y -= 200 * Gdx.graphics.getDeltaTime();
 			if (zombie.y + 48 < 0)
 				iter.remove();
-			if (zombie.overlaps(chainsaw)) {
+			if (zombie.overlaps(rpgChar)) {
 				//sawSound.play();
 				iter.remove();
 				spawnChainsaw();
@@ -149,7 +149,7 @@ public class Zombie implements ApplicationListener {
 	public void dispose() {
 		// dispose of all the native resources
 		zombieImage.dispose();
-		chainsawImage.dispose();
+		rpgImage.dispose();
 		sawSound.dispose();
 		songMusic.dispose();
 		batch.dispose();
