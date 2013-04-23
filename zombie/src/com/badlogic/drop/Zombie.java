@@ -145,7 +145,7 @@ public class Zombie implements ApplicationListener {
 				spawnChar();
 			}	
 			if ((TimeUtils.nanoTime() - StartTime)/100 >= 100000000){
-				//end game
+				zombies.clear();
 			}
 			
 			
